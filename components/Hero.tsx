@@ -9,7 +9,7 @@ export default function Hero() {
 
   const startSimulation = () => {
     setIsSimulationStarted(true);
-    router.push("/onboarding");
+    router.push("/start");
   };
 
   return (
