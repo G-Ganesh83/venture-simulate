@@ -136,7 +136,7 @@ export default function ReportPage() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } }
   };
 
   return (
@@ -154,7 +154,7 @@ export default function ReportPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-violet-500/20 bg-violet-500/10 text-[10px] font-mono tracking-widest text-violet-300 uppercase mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
@@ -169,6 +169,32 @@ export default function ReportPage() {
 
           <CircularScore score={report.score} />
         </motion.header>
+
+        {/* ── IDENTITY SYSTEM SECTION ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+          className="relative max-w-3xl mx-auto mb-16"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 via-indigo-500/20 to-violet-600/20 blur-xl rounded-3xl" />
+          <div className="relative p-10 md:p-14 rounded-3xl bg-black/40 backdrop-blur-2xl border border-white/10 text-center overflow-hidden">
+            <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-violet-400 to-transparent opacity-50" />
+            
+            <span className="text-sm font-bold tracking-[0.2em] text-violet-400 uppercase mb-4 block">
+              You are...
+            </span>
+            <div className="text-6xl md:text-7xl mb-6">
+              {report.identityIcon}
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+              {report.identityTitle}
+            </h2>
+            <p className="text-zinc-300 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-medium">
+              "{report.identityDescription}"
+            </p>
+          </div>
+        </motion.div>
 
         {/* ── DASHBOARD GRID ── */}
         <motion.div

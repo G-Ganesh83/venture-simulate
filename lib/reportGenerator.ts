@@ -14,7 +14,10 @@ export interface ReportData {
   summary: string;
   score: number;
   patterns: string;
-  recommendation: string; // fallback matching interface
+  recommendation: string;
+  identityTitle: string;
+  identityDescription: string;
+  identityIcon: string;
 }
 
 export function generateReport(domain: string, decisions: string[], metrics: Metrics): ReportData {
@@ -87,6 +90,29 @@ export function generateReport(domain: string, decisions: string[], metrics: Met
 
   const summary = `You showed a ${decisionStyle} approach. You performed well in ${strongestMetric} but struggled with ${weakestMetric}.`;
 
+  // 6. IDENTITY SYSTEM
+  let identityTitle = "The Strategic Operator";
+  let identityDescription = "You balance all metrics carefully, keeping the venture steady without exposing critical vulnerabilities.";
+  let identityIcon = "⚖️";
+
+  if (metrics.risk >= 60 && metrics.impact >= 60) {
+    identityTitle = "The Bold Builder";
+    identityDescription = "You prioritize massive growth and impact, confidently leaning into significant risks.";
+    identityIcon = "🌋";
+  } else if (metrics.trust >= 60 && metrics.risk <= 50) {
+    identityTitle = "The Community Leader";
+    identityDescription = "You build incredibly strong foundations rooted in stakeholder trust and lasting relationships.";
+    identityIcon = "🤝";
+  } else if (metrics.finance >= 60) {
+    identityTitle = "The Growth Hacker";
+    identityDescription = "You optimize resources incredibly well and maintain razor-sharp financial control to scale efficiently.";
+    identityIcon = "📈";
+  } else if (metrics.risk <= 40) {
+    identityTitle = "The Fortress Founder";
+    identityDescription = "You operate with extreme caution, building an impenetrable baseline before taking next steps.";
+    identityIcon = "🛡️";
+  }
+
   return {
     decisionStyle,
     strengths,
@@ -95,5 +121,8 @@ export function generateReport(domain: string, decisions: string[], metrics: Met
     score,
     patterns,
     recommendation: "", // keep for type compatibility if needed
+    identityTitle,
+    identityDescription,
+    identityIcon,
   };
 }
